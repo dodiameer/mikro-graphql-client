@@ -6,13 +6,16 @@
     "dev": "svite -ts",
     "build": "svite build -ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@urql/svelte": "^1.1.4",
+    "graphql": "^15.5.0"
+  },
   "devDependencies": {
     "@tsconfig/svelte": "^1.0.10",
-    "svelte-check": "^1.1.15",
-    "svelte-preprocess": "^4.6.1",
     "svelte": "^3.29.7",
+    "svelte-check": "^1.1.15",
     "svelte-hmr": "^0.11.6",
+    "svelte-preprocess": "^4.6.1",
     "svite": "^0.8.1",
     "tslib": "^2.0.3",
     "typescript": "^4.1.2"
