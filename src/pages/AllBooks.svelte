@@ -28,7 +28,7 @@
 
   $: limit && changeLimit();
   $: currentPage = $books.variables.offset / $books.variables.limit + 1;
-  $: lastPage = function () {
+  $: lastPage = () => {
     try {
       const mod = $books.variables.limit % $books.data.countBooks;
       const division = $books.data.countBooks / $books.variables.limit;
