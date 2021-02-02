@@ -10,4 +10,5 @@ query allBooks($limit: Int, $offset: Int) {
       age
     }
   }
+  countBooks
 }

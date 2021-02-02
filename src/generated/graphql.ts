@@ -144,16 +144,22 @@ export type AllBooksQueryVariables = Exact<{
   offset?: Maybe<Scalars["Int"]>;
 }>;
 
-export type AllBooksQuery = { __typename?: "Query" } & {
-  books: Array<
-    { __typename?: "Book" } & Pick<
-      Book,
-      "id" | "title" | "createdAt" | "updatedAt"
-    > & {
-        author: { __typename?: "Author" } & Pick<Author, "id" | "name" | "age">;
-      }
-  >;
-};
+export type AllBooksQuery = { __typename?: "Query" } & Pick<
+  Query,
+  "countBooks"
+> & {
+    books: Array<
+      { __typename?: "Book" } & Pick<
+        Book,
+        "id" | "title" | "createdAt" | "updatedAt"
+      > & {
+          author: { __typename?: "Author" } & Pick<
+            Author,
+            "id" | "name" | "age"
+          >;
+        }
+    >;
+  };
 
 export const AllBooksDocument: DocumentNode<
   AllBooksQuery,
@@ -229,6 +235,7 @@ export const AllBooksDocument: DocumentNode<
               ],
             },
           },
+          { kind: "Field", name: { kind: "Name", value: "countBooks" } },
         ],
       },
     },
