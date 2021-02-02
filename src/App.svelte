@@ -1,20 +1,13 @@
 <script lang="ts">
   import { initClient } from "@urql/svelte";
   import AllBooks from "./pages/AllBooks.svelte";
-  const world = "world"; // edit world and save to see hmr update
   initClient({
-    url: "https://mikro-graphql.herokuapp.com/graphql",
-    requestPolicy: "network-only",
+    url:
+      process.env.NODE_ENV === "production"
+        ? "https://mikro-graphql.herokuapp.com/graphql"
+        : "http://localhost:4000/graphql",
+    requestPolicy: "cache-first",
   });
 </script>
 
-<h1>Hello {world}</h1>
-<p>Open App.svelte in your editor and change something to see HMR in action</p>
-
 <AllBooks />
-
-<style>
-  h1 {
-    color: blue; /* change color an save to see hmr update */
-  }
-</style>
