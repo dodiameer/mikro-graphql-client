@@ -30,13 +30,8 @@
   $: currentPage = $books.variables.offset / $books.variables.limit + 1;
   $: lastPage = () => {
     try {
-      const mod = $books.variables.limit % $books.data.countBooks;
       const division = $books.data.countBooks / $books.variables.limit;
-      if (mod === 0) {
-        return Math.floor(division);
-      } else {
-        return Math.floor(division) + 1;
-      }
+      return Math.floor(division + 1);
     } catch {
       return null;
     }
