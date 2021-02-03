@@ -1,0 +1,19 @@
+query bookDetails($id: ID!) {
+  book(id: $id) {
+    id
+    title
+    createdAt
+    updatedAt
+    author {
+      id
+      name
+      age
+      createdAt
+      updatedAt
+      books {
+        id
+        title
+      }
+    }
+  }
+}
