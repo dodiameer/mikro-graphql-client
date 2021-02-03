@@ -14,10 +14,6 @@
 <header>
   <h1>Mikro GraphQL</h1>
 </header>
-<nav>
-  <a href="/" use:link>Home</a>
-  <a href="/book/98" use:link>YDKJS</a>
-</nav>
 <section>
   <Router routes="{routes}" />
 </section>
