@@ -1,0 +1,29 @@
+button {
+  all: unset;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  background: orangered;
+  border-radius: 0.75rem;
+  min-width: 8ch;
+  text-align: center;
+  transition: all 400ms ease-out;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    filter: brightness(150%);
+  }
+  &:focus {
+    outline: 2px solid #4d4dfd;
+  }
+  &:active {
+    filter: brightness(70%);
+  }
+  &:disabled:active,
+  &:disabled:hover,
+  &:disabled:focus,
+  &:disabled {
+    filter: grayscale(100%);
+    cursor: not-allowed;
+  }
+}

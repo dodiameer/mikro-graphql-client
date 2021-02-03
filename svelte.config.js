@@ -1,3 +1,6 @@
+/**
+ * @type {import("svelte-preprocess")} sveltePreprocess
+ */
 const sveltePreprocess = require('svelte-preprocess');
 module.exports = {
   preprocess: sveltePreprocess({
@@ -7,11 +10,22 @@ module.exports = {
     coffeescript: false,
     globalStyle: false,
     less: false,
-    postcss: false,
+    postcss: {
+      plugins: [require("autoprefixer")({
+        overrideBrowserslist: "last 2 versions",
+      })],
+    },
     pug: false,
+    // @ts-ignore
     replace: false,
     sass: false,
-    scss: false,
+    scss: {
+      prependData: "@import 'src/global.scss';"
+    },
     stylus: false,
+    defaults: {
+      script: "ts",
+      style: "scss"
+    }
   }),
 };
