@@ -1,7 +1,7 @@
 <script lang="ts">
   import { initClient } from "@urql/svelte";
-  import AllBooks from "./pages/AllBooks.svelte";
-  import BookDetails from "./pages/BookDetails.svelte";
+  import Router, { link } from "svelte-spa-router";
+  import { routes } from "./constants";
   initClient({
     url:
       process.env.NODE_ENV === "production"
@@ -14,12 +14,12 @@
 <header>
   <h1>Mikro GraphQL</h1>
 </header>
-<!-- <section>
-  <h1>All Books</h1>
-  <AllBooks />
-</section> -->
+<nav>
+  <a href="/" use:link>Home</a>
+  <a href="/book/98" use:link>YDKJS</a>
+</nav>
 <section>
-  <BookDetails id="98" />
+  <Router routes="{routes}" />
 </section>
 
 <style>

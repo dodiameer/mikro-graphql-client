@@ -3,7 +3,8 @@
 
   import { BookDetailsDocument } from "../generated/graphql";
   import type { BookDetailsQuery, Scalars } from "../generated/graphql";
-  export let id: Scalars["ID"];
+  export let params: any = {};
+  let id: Scalars["ID"] = params.id;
 
   const book = operationStore(BookDetailsDocument, { id });
 
