@@ -1,5 +1,6 @@
 <script lang="ts">
   import { operationStore, query } from "@urql/svelte";
+  import { pop as goBack } from "svelte-spa-router";
 
   import { BookDetailsDocument } from "../generated/graphql";
   import type { BookDetailsQuery, Scalars } from "../generated/graphql";
@@ -14,6 +15,7 @@
   $: data = $book?.data?.book ?? null;
 </script>
 
+<button on:click="{() => goBack()}"> Back </button>
 {#if $book.fetching}
   loading...
 {:else if $book.error}
@@ -47,6 +49,7 @@
 {/if}
 
 <style lang="scss">
+  @import "../global.scss";
   h1 {
     font-size: 2rem;
   }
