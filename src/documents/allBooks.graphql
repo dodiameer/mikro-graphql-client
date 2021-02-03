@@ -2,8 +2,6 @@ query allBooks($limit: Int, $offset: Int) {
   books(limit: $limit, offset: $offset) {
     id
     title
-    createdAt
-    updatedAt
     author {
       id
       name
