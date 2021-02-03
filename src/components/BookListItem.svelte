@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
+  import { link } from "svelte-spa-router";
 
   import type { AllBooksQuery } from "../generated/graphql";
 
@@ -15,7 +16,9 @@
     y: 100,
     easing: cubicOut,
   }}">
-  <span class="title">{book.title}</span>
+  <a href="/book/{book.id}" use:link>
+    <span class="title">{book.title}</span>
+  </a>
   <span class="author"
     >By {book.author.name}, {book.author.age ?? "Unknown age"}</span>
 </li>
@@ -24,7 +27,6 @@
   li {
     display: flex;
     flex-direction: column;
-    list-style-type: disc;
   }
   .title {
     font-size: 1.25rem;
