@@ -3,6 +3,7 @@
  */
 const sveltePreprocess = require('svelte-preprocess');
 module.exports = {
+  // @ts-ignore
   preprocess: sveltePreprocess({
     typescript: true,
     // disable preprocessors not in use
@@ -28,4 +29,5 @@ module.exports = {
       style: "scss"
     }
   }),
+
 };
