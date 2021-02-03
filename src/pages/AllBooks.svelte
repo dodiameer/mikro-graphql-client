@@ -2,31 +2,35 @@
   import { operationStore, query } from "@urql/svelte";
   import BookListItem from "../components/BookListItem.svelte";
   import { AllBooksDocument } from "../generated/graphql";
-
-  let limit = 5;
-  let offset = 0;
+  import pageState from "../stores/pageState";
 
   let books = operationStore(AllBooksDocument, {
-    limit,
-    offset,
+    limit: $pageState.AllBooks.limit,
+    offset: $pageState.AllBooks.offset,
   });
 
   query(books);
 
   const nextPage = () => {
-    $books.variables.offset += limit;
+    $pageState.AllBooks.offset += $pageState.AllBooks.limit;
+    $books.variables.offset += $pageState.AllBooks.limit;
   };
 
   const prevPage = () => {
-    $books.variables.offset -= limit;
+    $pageState.AllBooks.offset += $pageState.AllBooks.limit;
+    $books.variables.offset -= $pageState.AllBooks.limit;
   };
 
-  function changeLimit() {
-    $books.variables.offset = 0;
-    $books.variables.limit = limit;
+  function changeLimit(e: Event) {
+    $pageState.AllBooks.offset = 0;
+    $pageState.AllBooks.limit = parseInt(
+      (e.currentTarget as HTMLSelectElement).value
+    );
+
+    $books.variables.offset = $pageState.AllBooks.offset;
+    $books.variables.limit = $pageState.AllBooks.limit;
   }
 
-  $: limit && changeLimit();
   $: currentPage = $books.variables.offset / $books.variables.limit + 1;
   $: lastPage = () => {
     try {
@@ -40,7 +44,12 @@
 
 <div>
   <label for="bookLimit">Show in page</label>
-  <select name="limit" id="bookLimit" bind:value="{limit}">
+  <!-- svelte-ignore a11y-no-onchange -->
+  <select
+    name="limit"
+    id="bookLimit"
+    on:change="{changeLimit}"
+    bind:value="{$pageState.AllBooks.limit}">
     <option value="{5}">5</option>
     <option value="{10}">10</option>
     <option value="{25}">25</option>
@@ -52,7 +61,8 @@
   </button>
   <button
     on:click="{nextPage}"
-    disabled="{$books.fetching || $books.data.books.length !== limit}">
+    disabled="{$books.fetching ||
+      $books.data.books.length !== $pageState.AllBooks.limit}">
     Next
   </button>
   <p>
