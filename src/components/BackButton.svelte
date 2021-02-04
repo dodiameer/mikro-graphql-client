@@ -2,11 +2,11 @@
   import { pop as goBack } from "svelte-spa-router";
 </script>
 
-<button on:click="{() => goBack()}" class="back-button"> Back </button>
+<button on:click="{() => goBack()}"> Back </button>
 
 <style>
   @import "../global.scss";
-  button.back-button {
+  button {
     margin-bottom: 1rem;
   }
 </style>
