@@ -20,7 +20,7 @@
   $: data = $book?.data?.book ?? null;
 </script>
 
-<button on:click="{() => goBack()}"> Back </button>
+<button on:click="{() => goBack()}" class="back-button"> Back </button>
 {#if $book.fetching}
   loading...
 {:else if $book.error}
@@ -92,6 +92,9 @@
 
 <style lang="scss">
   @import "../global.scss";
+  button.back-button {
+    margin-bottom: 1rem;
+  }
   h1 {
     font-size: 2rem;
   }
