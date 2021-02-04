@@ -105,7 +105,7 @@
   ul {
     padding-left: 1rem;
     &.parent-list {
-      margin-top: 2rem;
+      margin-top: 1.25rem;
     }
   }
 </style>
