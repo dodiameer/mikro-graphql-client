@@ -17,7 +17,7 @@
   };
 
   const prevPage = () => {
-    $pageState.AllBooks.offset += $pageState.AllBooks.limit;
+    $pageState.AllBooks.offset -= $pageState.AllBooks.limit;
     $books.variables.offset -= $pageState.AllBooks.limit;
   };
 
@@ -31,7 +31,7 @@
     $books.variables.limit = $pageState.AllBooks.limit;
   }
 
-  $: currentPage = $books.variables.offset / $books.variables.limit + 1;
+  $: currentPage = $pageState.AllBooks.offset / $pageState.AllBooks.limit + 1;
   $: lastPage = () => {
     try {
       const division = $books.data.countBooks / $books.variables.limit;
