@@ -3,14 +3,16 @@
   import { pop as goBack } from "svelte-spa-router";
   import { fly } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
-  let duration = 500;
-
+  import { link } from "svelte-spa-router";
   import { BookDetailsDocument } from "../generated/graphql";
-  import type { BookDetailsQuery, Scalars } from "../generated/graphql";
-  export let params: any = {};
-  let id: Scalars["ID"] = params.id;
+  import type { BookDetailsQuery } from "../generated/graphql";
 
-  const book = operationStore(BookDetailsDocument, { id });
+  const duration = 500;
+
+  export let params: any = {};
+
+  const book = operationStore(BookDetailsDocument, { id: params.id });
+  $: $book.variables.id = params.id;
 
   query(book);
 
@@ -73,9 +75,11 @@
             y: 100,
             easing: cubicOut,
           }}">
-          {#each data.author.books.filter((b) => b.id !== id) as otherBook}
+          {#each data.author.books.filter((b) => b.id !== params.id) as otherBook}
             <li>
-              {otherBook.title}
+              <a href="/book/{otherBook.id}" use:link>
+                {otherBook.title}
+              </a>
             </li>
           {:else}
             No other books
