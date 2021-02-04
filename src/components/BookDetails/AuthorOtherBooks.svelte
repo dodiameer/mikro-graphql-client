@@ -34,4 +34,19 @@
   ul {
     padding-left: 1rem;
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a::after {
+    content: url("/icons/external-link.svg");
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-left: 0.25rem;
+    fill: orangered;
+    color: orangered;
+    width: 20px;
+    height: 20px;
+  }
 </style>
