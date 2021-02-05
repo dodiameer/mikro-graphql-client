@@ -30,3 +30,9 @@
     {/key}
   {/if}
 </ul>
+
+<style>
+  ul {
+    margin-top: 1.25rem;
+  }
+</style>
