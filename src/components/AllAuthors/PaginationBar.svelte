@@ -28,24 +28,24 @@
 
   /* UI reactive variables */
   $: currentPage = $authors.variables.offset / $authors.variables.limit + 1;
-  // $: lastPage = () => {
-  //   try {
-  //     const division = $authors.data.countBooks / $authors.variables.limit;
-  //     return Math.floor(division + 1);
-  //   } catch {
-  //     return null;
-  //   }
-  // };
+  $: lastPage = () => {
+    try {
+      const division = $authors.data.countAuthors / $authors.variables.limit;
+      return Math.floor(division + 1);
+    } catch {
+      return null;
+    }
+  };
 </script>
 
 <div class="container">
   <div>
-    <label for="bookLimit"> Show in page: </label>
+    <label for="authorLimit"> Show in page: </label>
     <!-- svelte-ignore a11y-no-onchange -->
     <select
       name="limit"
-      id="bookLimit"
-      bind:value="{$pageState.AllBooks.limit}"
+      id="authorLimit"
+      bind:value="{$pageState.AllAuthors.limit}"
       on:change="{resetOffset}">
       <option value="{5}">5</option>
       <option value="{10}">10</option>
@@ -68,9 +68,9 @@
 </div>
 <span>
   Page {currentPage}
-  <!-- {#if lastPage() !== null}
+  {#if lastPage() !== null}
     of {lastPage()}
-  {/if} -->
+  {/if}
 </span>
 
 <style lang="scss">
@@ -81,10 +81,10 @@
     justify-content: space-between;
     flex-direction: row;
 
-    & label[for="bookLimit"] {
+    & label[for="authorLimit"] {
       margin-right: 0.25rem;
     }
-    & select#bookLimit {
+    & select#authorLimit {
       min-width: 2rem;
       text-align: center;
     }
