@@ -5,10 +5,18 @@ export interface IPageState {
     offset: number;
     limit: number;
   };
+  AllAuthors: {
+    offset: number;
+    limit: number;
+  };
 }
 
 export const pageState = writable<IPageState>({
   AllBooks: {
+    offset: 0,
+    limit: 5,
+  },
+  AllAuthors: {
     offset: 0,
     limit: 5,
   },
