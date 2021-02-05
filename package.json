@@ -1,6 +1,6 @@
 {
   "name": "mikro-graphql-client",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "scripts": {
     "validate": "svelte-check && tsc --noEmit",
     "dev": "svite -ts",

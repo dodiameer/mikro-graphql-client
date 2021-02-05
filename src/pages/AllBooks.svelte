@@ -2,7 +2,7 @@
   /* Imports */
   import { operationStore, query } from "@urql/svelte";
   import PaginationBar from "../components/AllBooks/PaginationBar.svelte";
-  import BookListItem from "../components/BookListItem.svelte";
+  import BookListItem from "../components/AllBooks/BookListItem.svelte";
   import { AllBooksDocument } from "../generated/graphql";
   import pageState from "../stores/pageState";
 

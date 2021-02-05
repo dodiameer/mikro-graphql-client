@@ -1,36 +1,36 @@
 <script>
   import type { OperationStore } from "@urql/svelte";
-  import type { AllBooksQuery, Exact } from "../../generated/graphql";
+  import type { AllAuthorsQuery } from "../../generated/graphql";
 
   import type { IPageState } from "../../stores/pageState";
 
   export let pageState: SvelteStore<IPageState>;
-  export let books: OperationStore<
-    AllBooksQuery,
-    Exact<{
-      limit?: number;
-      offset?: number;
-    }>
+  export let authors: OperationStore<
+    AllAuthorsQuery,
+    {
+      limit: number;
+      offset: number;
+    }
   >;
 
   /* Helper functions */
   const nextPage = () => {
-    $pageState.AllBooks.offset += $pageState.AllBooks.limit;
+    $pageState.AllAuthors.offset += $pageState.AllAuthors.limit;
   };
 
   const prevPage = () => {
-    $pageState.AllBooks.offset -= $pageState.AllBooks.limit;
+    $pageState.AllAuthors.offset -= $pageState.AllAuthors.limit;
   };
 
   const resetOffset = () => {
-    $pageState.AllBooks.offset = 0;
+    $pageState.AllAuthors.offset = 0;
   };
 
   /* UI reactive variables */
-  $: currentPage = $books.variables.offset / $books.variables.limit + 1;
+  $: currentPage = $authors.variables.offset / $authors.variables.limit + 1;
   $: lastPage = () => {
     try {
-      const division = $books.data.countBooks / $books.variables.limit;
+      const division = $authors.data.countAuthors / $authors.variables.limit;
       return Math.floor(division + 1);
     } catch {
       return null;
@@ -40,12 +40,12 @@
 
 <div class="container">
   <div>
-    <label for="bookLimit"> Show in page: </label>
+    <label for="authorLimit"> Show in page: </label>
     <!-- svelte-ignore a11y-no-onchange -->
     <select
       name="limit"
-      id="bookLimit"
-      bind:value="{$pageState.AllBooks.limit}"
+      id="authorLimit"
+      bind:value="{$pageState.AllAuthors.limit}"
       on:change="{resetOffset}">
       <option value="{5}">5</option>
       <option value="{10}">10</option>
@@ -55,13 +55,13 @@
   <div>
     <button
       on:click="{prevPage}"
-      disabled="{$books.fetching || $books.variables.offset === 0}">
+      disabled="{$authors.fetching || $authors.variables.offset === 0}">
       Previous
     </button>
     <button
       on:click="{nextPage}"
-      disabled="{$books.fetching ||
-        $books.data.books.length !== $pageState.AllBooks.limit}">
+      disabled="{$authors.fetching ||
+        $authors.data.authors.length !== $pageState.AllAuthors.limit}">
       Next
     </button>
   </div>
@@ -81,10 +81,10 @@
     justify-content: space-between;
     flex-direction: row;
 
-    & label[for="bookLimit"] {
+    & label[for="authorLimit"] {
       margin-right: 0.25rem;
     }
-    & select#bookLimit {
+    & select#authorLimit {
       min-width: 2rem;
       text-align: center;
     }

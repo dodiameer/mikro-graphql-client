@@ -3,7 +3,7 @@
   import { cubicOut } from "svelte/easing";
   import { link } from "svelte-spa-router";
 
-  import type { AllBooksQuery } from "../generated/graphql";
+  import type { AllBooksQuery } from "../../generated/graphql";
 
   export let book: AllBooksQuery["books"][0];
   export let index: number;

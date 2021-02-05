@@ -1,0 +1,8 @@
+query allAuthors($limit: Int!, $offset: Int!) {
+  authors(limit: $limit, offset: $offset) {
+    id
+    name
+    age
+  }
+  countAuthors
+}
