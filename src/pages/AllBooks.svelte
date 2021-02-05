@@ -9,27 +9,18 @@
     offset: $pageState.AllBooks.offset,
   });
 
+  $: $books.variables.limit = $pageState.AllBooks.limit;
+  $: $books.variables.offset = $pageState.AllBooks.offset;
+
   query(books);
 
   const nextPage = () => {
     $pageState.AllBooks.offset += $pageState.AllBooks.limit;
-    $books.variables.offset += $pageState.AllBooks.limit;
   };
 
   const prevPage = () => {
     $pageState.AllBooks.offset -= $pageState.AllBooks.limit;
-    $books.variables.offset -= $pageState.AllBooks.limit;
   };
-
-  function changeLimit(e: Event) {
-    $pageState.AllBooks.offset = 0;
-    $pageState.AllBooks.limit = parseInt(
-      (e.currentTarget as HTMLSelectElement).value
-    );
-
-    $books.variables.offset = $pageState.AllBooks.offset;
-    $books.variables.limit = $pageState.AllBooks.limit;
-  }
 
   $: currentPage = $pageState.AllBooks.offset / $pageState.AllBooks.limit + 1;
   $: lastPage = () => {
@@ -44,12 +35,7 @@
 
 <div>
   <label for="bookLimit">Show in page</label>
-  <!-- svelte-ignore a11y-no-onchange -->
-  <select
-    name="limit"
-    id="bookLimit"
-    on:change="{changeLimit}"
-    bind:value="{$pageState.AllBooks.limit}">
+  <select name="limit" id="bookLimit" bind:value="{$pageState.AllBooks.limit}">
     <option value="{5}">5</option>
     <option value="{10}">10</option>
     <option value="{25}">25</option>
