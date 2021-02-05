@@ -22,8 +22,12 @@
     $pageState.AllBooks.offset -= $pageState.AllBooks.limit;
   };
 
+  const resetOffset = () => {
+    $pageState.AllBooks.offset = 0;
+  };
+
   /* UI reactive variables */
-  $: currentPage = $pageState.AllBooks.offset / $pageState.AllBooks.limit + 1;
+  $: currentPage = $books.variables.offset / $books.variables.limit + 1;
   $: lastPage = () => {
     try {
       const division = $books.data.countBooks / $books.variables.limit;
@@ -37,10 +41,12 @@
 <div class="container">
   <div>
     <label for="bookLimit"> Show in page: </label>
+    <!-- svelte-ignore a11y-no-onchange -->
     <select
       name="limit"
       id="bookLimit"
-      bind:value="{$pageState.AllBooks.limit}">
+      bind:value="{$pageState.AllBooks.limit}"
+      on:change="{resetOffset}">
       <option value="{5}">5</option>
       <option value="{10}">10</option>
       <option value="{25}">25</option>
