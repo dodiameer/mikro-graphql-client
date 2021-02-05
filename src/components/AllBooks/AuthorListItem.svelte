@@ -2,6 +2,7 @@
   import { cubicOut } from "svelte/easing";
 
   import { fly } from "svelte/transition";
+  import { link } from "svelte-spa-router";
 
   import type { AllAuthorsQuery } from "../../generated/graphql";
 
@@ -16,7 +17,7 @@
     y: 100,
     easing: cubicOut,
   }}">
-  <a href="/author/{author.id}">
+  <a href="/author/{author.id}" use:link>
     {author.name}, {author.age ?? "unknown age"}
   </a>
 </li>
