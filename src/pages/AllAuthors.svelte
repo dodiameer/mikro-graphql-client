@@ -3,6 +3,7 @@
   import { AllAuthorsDocument } from "../generated/graphql";
   import type { AllAuthorsQuery } from "../generated/graphql";
   import pageState from "../stores/pageState";
+  import PaginationBar from "../components/AllAuthors/PaginationBar.svelte";
 
   const authors = operationStore(AllAuthorsDocument, {
     limit: $pageState.AllAuthors.limit,
@@ -22,9 +23,5 @@
 {:else if $authors.error}
   Error! {$authors.error.message}
 {:else}
-  <pre>
-  <code>
-    {JSON.stringify(data, null, 2)}
-  </code>
-</pre>
+  <PaginationBar authors="{authors}" pageState="{pageState}" />
 {/if}
