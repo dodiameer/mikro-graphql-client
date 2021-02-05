@@ -1,9 +1,11 @@
 <script lang="ts">
+  /* Imports */
   import { operationStore, query } from "@urql/svelte";
   import BookListItem from "../components/BookListItem.svelte";
   import { AllBooksDocument } from "../generated/graphql";
   import pageState from "../stores/pageState";
 
+  /* GraphQL Query */
   let books = operationStore(AllBooksDocument, {
     limit: $pageState.AllBooks.limit,
     offset: $pageState.AllBooks.offset,
@@ -14,6 +16,7 @@
 
   query(books);
 
+  /* Helper functions */
   const nextPage = () => {
     $pageState.AllBooks.offset += $pageState.AllBooks.limit;
   };
@@ -22,6 +25,7 @@
     $pageState.AllBooks.offset -= $pageState.AllBooks.limit;
   };
 
+  /* UI reactive variables */
   $: currentPage = $pageState.AllBooks.offset / $pageState.AllBooks.limit + 1;
   $: lastPage = () => {
     try {
