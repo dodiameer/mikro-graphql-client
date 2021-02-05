@@ -83,4 +83,7 @@
       text-align: center;
     }
   }
+  span {
+    display: block;
+  }
 </style>
