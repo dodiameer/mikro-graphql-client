@@ -1,20 +1,30 @@
 <script>
+  import { operationStore, query } from "@urql/svelte";
+  import { AllAuthorsDocument } from "../generated/graphql";
+  import type { AllAuthorsQuery } from "../generated/graphql";
   import pageState from "../stores/pageState";
+
+  const authors = operationStore(AllAuthorsDocument, {
+    limit: $pageState.AllAuthors.limit,
+    offset: $pageState.AllAuthors.offset,
+  });
+  $: $authors.variables.limit = $pageState.AllAuthors.limit;
+  $: $authors.variables.offset = $pageState.AllAuthors.offset;
+
+  query(authors);
+
+  let data: AllAuthorsQuery["authors"];
+  $: data = $authors?.data?.authors;
 </script>
 
-<h1>All authors page</h1>
-<select name="" id="" bind:value="{$pageState.AllAuthors.limit}">
-  <option value="5">5</option>
-  <option value="10">10</option>
-  <option value="15">15</option>
-  <option value="20">20</option>
-  <option value="25">25</option>
-</select>
-<button> Next </button>
-<button> Previous </button>
-<p>
-  limit: {$pageState.AllAuthors.limit}
-</p>
-<p>
-  offset: {$pageState.AllAuthors.offset}
-</p>
+{#if $authors.fetching}
+  loading...
+{:else if $authors.error}
+  Error! {$authors.error.message}
+{:else}
+  <pre>
+  <code>
+    {JSON.stringify(data, null, 2)}
+  </code>
+</pre>
+{/if}
