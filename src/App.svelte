@@ -1,6 +1,7 @@
 <script lang="ts">
   import { initClient } from "@urql/svelte";
   import Router, { link } from "svelte-spa-router";
+  import Navbar from "./components/Navbar.svelte";
   import { routes } from "./constants";
   initClient({
     url:
@@ -14,6 +15,7 @@
 <header>
   <h1>Mikro GraphQL</h1>
 </header>
+<Navbar />
 <section>
   <Router routes="{routes}" />
 </section>

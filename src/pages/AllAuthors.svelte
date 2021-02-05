@@ -1,20 +1,38 @@
 <script>
+  import { operationStore, query } from "@urql/svelte";
+  import { AllAuthorsDocument } from "../generated/graphql";
+  import type { AllAuthorsQuery } from "../generated/graphql";
   import pageState from "../stores/pageState";
+  import PaginationBar from "../components/AllAuthors/PaginationBar.svelte";
+  import AuthorListItem from "../components/AllBooks/AuthorListItem.svelte";
+
+  const authors = operationStore(AllAuthorsDocument, {
+    limit: $pageState.AllAuthors.limit,
+    offset: $pageState.AllAuthors.offset,
+  });
+  $: $authors.variables.limit = $pageState.AllAuthors.limit;
+  $: $authors.variables.offset = $pageState.AllAuthors.offset;
+
+  query(authors);
 </script>
 
-<h1>All authors page</h1>
-<select name="" id="" bind:value="{$pageState.AllAuthors.limit}">
-  <option value="5">5</option>
-  <option value="10">10</option>
-  <option value="15">15</option>
-  <option value="20">20</option>
-  <option value="25">25</option>
-</select>
-<button> Next </button>
-<button> Previous </button>
-<p>
-  limit: {$pageState.AllAuthors.limit}
-</p>
-<p>
-  offset: {$pageState.AllAuthors.offset}
-</p>
+<PaginationBar authors="{authors}" pageState="{pageState}" />
+<ul>
+  {#if $authors.fetching}
+    loading...
+  {:else if $authors.error}
+    Error! {$authors.error.message}
+  {:else}
+    {#key $pageState.AllAuthors.offset}
+      {#each $authors.data.authors as author, index}
+        <AuthorListItem author="{author}" index="{index}" />
+      {/each}
+    {/key}
+  {/if}
+</ul>
+
+<style>
+  ul {
+    margin-top: 1.25rem;
+  }
+</style>
