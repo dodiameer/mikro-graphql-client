@@ -1,4 +1,6 @@
 <script>
+  import { link } from "svelte-spa-router";
+
   import { cubicOut } from "svelte/easing";
   import { fly } from "svelte/transition";
 
@@ -6,7 +8,6 @@
 
   export let data: BookDetailsQuery["book"];
   export let animationDuration: number;
-  export let params: any;
 </script>
 
 <li>Author details:</li>
@@ -22,7 +23,7 @@
   </li>
   <li>Last update: {new Date(data.author.updatedAt).toLocaleString()}</li>
   <li>
-    <a href="/author/{data.author.id}"> More details </a>
+    <a href="/author/{data.author.id}" use:link> More details </a>
   </li>
 </ul>
 
