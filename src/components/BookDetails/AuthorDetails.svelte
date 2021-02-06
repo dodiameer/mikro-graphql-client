@@ -3,7 +3,6 @@
   import { fly } from "svelte/transition";
 
   import type { BookDetailsQuery } from "../../generated/graphql";
-  import AuthorOtherBooks from "./AuthorOtherBooks.svelte";
 
   export let data: BookDetailsQuery["book"];
   export let animationDuration: number;
@@ -22,10 +21,6 @@
     Added to library: {new Date(data.author.createdAt).toLocaleString()}
   </li>
   <li>Last update: {new Date(data.author.updatedAt).toLocaleString()}</li>
-  <AuthorOtherBooks
-    data="{data}"
-    params="{params}"
-    animationDuration="{animationDuration}" />
 </ul>
 
 <style>
