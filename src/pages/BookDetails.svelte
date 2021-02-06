@@ -44,12 +44,14 @@
 {:else if $book.error}
   Error! {$book.error.message}
 {:else}
-  <article>
-    <BookTitle data="{data}" animationDuration="{animationDuration}" />
-    <BookAuthor data="{data}" animationDuration="{animationDuration}" />
-    <BookDetailsList
-      data="{data}"
-      params="{params}"
-      animationDuration="{animationDuration}" />
-  </article>
+  {#key params.id}
+    <article>
+      <BookTitle data="{data}" animationDuration="{animationDuration}" />
+      <BookAuthor data="{data}" animationDuration="{animationDuration}" />
+      <BookDetailsList
+        data="{data}"
+        params="{params}"
+        animationDuration="{animationDuration}" />
+    </article>
+  {/key}
 {/if}

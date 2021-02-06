@@ -4,35 +4,32 @@
   import { fly } from "svelte/transition";
   import { link } from "svelte-spa-router";
 
-  import type { BookDetailsQuery } from "../../generated/graphql";
+  import type { AuthorDetailsQuery } from "../../generated/graphql";
 
-  export let data: BookDetailsQuery["book"];
+  export let data: AuthorDetailsQuery["author"];
   export let animationDuration: number;
-  export let params: any;
 </script>
 
-<li>Other books:</li>
+<li>Books:</li>
 <ul
   in:fly="{{
-    delay: 5 * 100,
+    delay: 4 * 100,
     duration: animationDuration,
     y: 100,
     easing: cubicOut,
   }}">
-  {#each data.author.books.filter((b) => b.id !== params.id) as otherBook}
+  {#each data.books as book}
     <li>
-      <a href="/book/{otherBook.id}" use:link>
-        {otherBook.title}
+      <a href="/book/{book.id}" use:link>
+        {book.title}
       </a>
     </li>
-  {:else}
-    No other books
   {/each}
 </ul>
 
 <style>
   ul {
-    padding-left: 1rem;
+    padding-left: var(--padding);
   }
   a {
     color: inherit;

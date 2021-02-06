@@ -20,10 +20,7 @@
   }}">
   <li>Added to library: {new Date(data.createdAt).toLocaleString()}</li>
   <li>Last update: {new Date(data.updatedAt).toLocaleString()}</li>
-  <AuthorDetails
-    data="{data}"
-    params="{params}"
-    animationDuration="{animationDuration}" />
+  <AuthorDetails data="{data}" animationDuration="{animationDuration}" />
 </ul>
 
 <style>

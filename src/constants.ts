@@ -8,4 +8,7 @@ export const routes = {
   "/authors": wrap({
     asyncComponent: () => import("./pages/AllAuthors.svelte"),
   }),
+  "/author/:id": wrap({
+    asyncComponent: () => import("./pages/AuthorDetails.svelte"),
+  }),
 };

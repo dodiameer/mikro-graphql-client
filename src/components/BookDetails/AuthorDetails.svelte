@@ -1,13 +1,13 @@
 <script>
+  import { link } from "svelte-spa-router";
+
   import { cubicOut } from "svelte/easing";
   import { fly } from "svelte/transition";
 
   import type { BookDetailsQuery } from "../../generated/graphql";
-  import AuthorOtherBooks from "./AuthorOtherBooks.svelte";
 
   export let data: BookDetailsQuery["book"];
   export let animationDuration: number;
-  export let params: any;
 </script>
 
 <li>Author details:</li>
@@ -22,14 +22,28 @@
     Added to library: {new Date(data.author.createdAt).toLocaleString()}
   </li>
   <li>Last update: {new Date(data.author.updatedAt).toLocaleString()}</li>
-  <AuthorOtherBooks
-    data="{data}"
-    params="{params}"
-    animationDuration="{animationDuration}" />
+  <li>
+    <a href="/author/{data.author.id}" use:link> More details </a>
+  </li>
 </ul>
 
 <style>
   ul {
     padding-left: 1rem;
+  }
+  a {
+    color: inherit;
+
+    &::after {
+      content: url("/icons/external-link.svg");
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      margin-left: 0.25rem;
+      fill: orangered;
+      color: orangered;
+      width: 20px;
+      height: 20px;
+    }
   }
 </style>
